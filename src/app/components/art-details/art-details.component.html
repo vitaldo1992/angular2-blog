@@ -1,0 +1,15 @@
+<div *ngIf="details">
+
+  <h1>{{details.art_title}}</h1>
+  <p><span class="glyphicon glyphicon-time"></span> Posted on {{details.art_date}}</p>
+  <img *ngIf="imageUrl" class="img-responsive" src="{{imageUrl}}">
+  <hr>
+  <p class="lead">{{details.art_content}}</p>
+  <a [routerLink]="['/article']" class="btn btn-success">Back</a>
+  <div *ngIf="canEdit">
+    <span class="action-bts">
+    <a class="btn btn-success" [routerLink]="['/article/edit-article/' + details.$key]">Edit</a>
+    <button (click)="onDeleteArticle()" class="btn btn-danger">Delete</button>
+    </span>
+  </div>
+</div>

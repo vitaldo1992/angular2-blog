@@ -1,0 +1,13 @@
+form {
+  margin: 30px 0;
+}
+.input-container {
+  margin: 10px 0;
+  input[type="text"], textarea {
+    padding: 0 10px;
+    width: 60%;
+  }
+  textarea {
+    height: 200px;
+  }
+}

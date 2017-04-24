@@ -1,0 +1,8 @@
+<li>
+  <h1>{{item.art_title}}</h1>
+  <p><span class="glyphicon glyphicon-time"></span> Posted on {{item.art_date}}</p>
+  <hr>
+  <p class="lead" *ngIf="!editing">{{item.art_content}}</p>
+  <a [routerLink]="['/article/details/'+item.$key]" class="btn btn-success">Читать далее</a>
+</li>
+<hr>

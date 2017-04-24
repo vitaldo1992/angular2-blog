@@ -1,0 +1,24 @@
+li {
+  list-style-type: none;
+}
+textarea {
+  display: block;
+  font-size: 21px;
+  font-weight: 300;
+  line-height: 1.4;
+  width: 100%;
+  height: 250px;
+}
+.btn {
+  margin-top: 10px;
+}
+.img-responsive {
+  width: 900px;
+  height: 300px;
+}
+.lead {
+  height: auto;
+  max-height: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

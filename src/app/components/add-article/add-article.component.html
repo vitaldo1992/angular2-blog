@@ -1,0 +1,24 @@
+<div *ngIf="fbService.af.auth | async">
+  <h2>
+    Добавьте свою статью, заполнив поля
+  </h2>
+  <form (submit)="onAddSubmit()">
+    <div class="input-container">
+      <input type="text"  [(ngModel)]="art_title" name="art_title" required placeholder="Название статьи">
+    </div>
+    <div class="input-container">
+      <input type="text" [(ngModel)]='art_date' name="art_date" required placeholder="Дата загрузки">
+    </div>
+    <div class="input-container">
+      <textarea name="art_content" [(ngModel)]='art_content' required placeholder="Текст статьи"></textarea>
+    </div>
+    <div class="input-container">
+      <input id="image" name="art_img" type="file" [(ngModel)]='art_img' required>
+    </div>
+    <div class="input-container">
+      <input type="submit" value="Добавить">
+    </div>
+
+  </form>
+  <a [routerLink]="['/articles']" class="btn btn-content"></a>
+</div>
