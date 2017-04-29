@@ -1,3 +1,17 @@
-<p>
-  <button class="btn-primary" (click)="getUsers()">Список пользователей</button>
-</p>
+<div *ngIf='root'>
+  <button class="btn-primary" (click)="showUsers()">Список пользователей</button>
+  <div class="row">
+    <div class="col-sx-12">
+      <table *ngIf="showUsersFlag">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>CanEdit</th>
+          <th>Action</th>
+        </tr>
+        <tr app-edit-users *ngFor="let user of users | async" [user]='user'></tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { ModuleWithProviders } from "@angular/core";
+// import { ModuleWithProviders } from "@angular/core";
 
 import { AngularFireModule } from 'angularfire2';
 import { FireBaseConfig } from '../environments/firebase';
@@ -19,16 +19,19 @@ import { routesConfig } from '../routes/router.module';
 
 import { ItemContentComponent } from './components/item-content/item-content.component';
 import { HeaderComponent } from './components/header/header.component';
-import { AboutComponent } from './components/about/about.component';
-import { ContactsComponent } from './components/contacts/contacts.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AddArticleComponent } from './components/add-article/add-article.component';
 import { ArtDetailsComponent } from './components/art-details/art-details.component';
 
-import { FlashMessagesModule } from 'angular2-flash-messages';
 import { EditArticleComponent } from './components/edit-article/edit-article.component';
 import { RootRoomComponent } from './components/root-room/root-room.component';
+import { EditUsersComponent } from './components/root-room/edit-users/edit-users.component';
+
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { MaterialModule } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -36,14 +39,13 @@ import { RootRoomComponent } from './components/root-room/root-room.component';
     ArticleComponent,
     ItemContentComponent,
     HeaderComponent,
-    AboutComponent,
-    ContactsComponent,
     FooterComponent,
     SidebarComponent,
     AddArticleComponent,
     ArtDetailsComponent,
     EditArticleComponent,
-    RootRoomComponent
+    RootRoomComponent,
+    EditUsersComponent
   ],
   imports: [
     FlashMessagesModule,
@@ -51,7 +53,9 @@ import { RootRoomComponent } from './components/root-room/root-room.component';
     FormsModule,
     HttpModule,
     RouterModule.forRoot(routesConfig),
-    AngularFireModule.initializeApp(FireBaseConfig)
+    AngularFireModule.initializeApp(FireBaseConfig),
+    MaterialModule,
+    BrowserAnimationsModule
   ],
   exports: [],
   providers: [AuthService],

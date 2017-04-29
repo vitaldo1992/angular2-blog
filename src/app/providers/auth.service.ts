@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, AuthProviders, AuthMethods, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire, AuthProviders, AuthMethods, FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2';
 import * as firebase from 'firebase';
 
 
@@ -8,15 +8,16 @@ export class AuthService {
 
   articles: FirebaseListObservable<any[]>;
   details: FirebaseObjectObservable<any>;
-  images:FirebaseListObservable<any[]>;
-  Users: FirebaseListObservable<any[]>;
+  images: FirebaseListObservable<any[]>;
+  Users: FirebaseListObservable<User[]>;
+  User: FirebaseObjectObservable<User>;
   root: boolean;
   folder: any;
 
-  constructor(public af: AngularFire) {
+  constructor(public af: AngularFire, private db: AngularFireDatabase) {
     this.folder = 'articles';
     this.articles = this.af.database.list('/blog-articles') as FirebaseListObservable<Articles[]>;
-    this.Users = this.af.database.list('/users');
+    this.Users = this.af.database.list('/users') as FirebaseListObservable<User[]>;
   }
 
   loginingGoogle() {
@@ -39,16 +40,25 @@ export class AuthService {
     return this.details;
   }
 
+  getUser(uid) {
+    this.User = this.af.database.object('/users/'+uid) as FirebaseObjectObservable<User>;
+    return this.User;
+  }
+
+  getUsers(query={}): FirebaseListObservable<User[]> {
+    this.Users = this.db.list('/users', {query: query})
+    return this.Users;
+  }
+
   addArticle(article) {
-    // Create root reference
+
     let refStorage = firebase.storage().ref();
 
     for (let selectedFile of [(<HTMLInputElement>document.getElementById('image')).files[0]]) {
       let path = `/${this.folder}/${selectedFile.name}`;
-
         let ref = refStorage.child(path);
         ref.put(selectedFile).then((snapshot) => {
-          // article.art_img = selectedFile.name;
+
           article.path = path;
 
           return this.articles.push(article)
@@ -65,41 +75,29 @@ export class AuthService {
     return this.articles.update(id, article);
   }
 
-
-  createUser(data) {
-
-    let exist = false;
-
-    this.af.auth.subscribe(auth => {
-      if (auth) {
-        this.af.database.list('/users').subscribe(users => {
-          for (let i = 0; i < users.length; i++) {
-            if (users[i].userToken == auth.uid) {
-              exist = true;
-              break;
-            }
-          }
-        });
-
-        if (!exist) {
-          let newUser = {
-            canEdit: false,
-            email: auth.auth.email,
-            name: auth.auth.displayName,
-            role: 'registered',
-            userToken: auth.uid
-          }
-          return  this.Users.push(newUser);
-        }
-      }
-    });
-
-
+  updateUsers(key, user) {
+    return this.Users.update(key, user);
   }
 
-
-
-
+  createUser() {
+    this.af.auth.subscribe(auth => {
+      if (auth) {
+        this.getUser(auth.uid).subscribe(
+          user => {
+            if (!user.email) {
+              let newUser = {
+                canEdit: false,
+                email: auth.auth.email,
+                name: auth.auth.displayName,
+                role: 'registered',
+              }
+              this.af.database.object(`/users/${auth.uid}`);
+            }
+          }
+        );
+      }
+    });
+  }
 }
 
 
@@ -110,7 +108,7 @@ interface Articles {
   art_date?: String;
   path: String;
 }
-interface Users {
+interface User {
   $key?: String;
   email?: String;
   name?: String;

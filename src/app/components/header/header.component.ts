@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../providers/auth.service';
 import { FlashMessagesService  } from 'angular2-flash-messages';
@@ -9,20 +9,30 @@ import { FlashMessagesService  } from 'angular2-flash-messages';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  name: String;
+  root: boolean = false;
   constructor(private authService: AuthService, private router: Router, private flashMessages: FlashMessagesService ) {
-
   }
 
   ngOnInit() {
+    this.authService.af.auth.subscribe(auth => {
+      this.root = false;
+      this.name = null;
+      if (auth) {
+        this.authService.getUser(auth.uid).subscribe(user=> {
+          this.name = user.name;
+          this.root = false;
+          if (user.role=='root') {
+            this.root=true;
+          }
+        });
+      }
+    });
   }
 
   loginWithGoogle() {
-    this.authService.loginingGoogle().then((data) => {
-      this.authService.createUser(data);
-      return this.router.navigate(['article']);
-
-    });
+    this.authService.loginingGoogle();
+    this.authService.createUser();
   }
 
   logOut() {

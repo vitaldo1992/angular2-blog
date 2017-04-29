@@ -1,0 +1,17 @@
+  <td>{{user.name}}</td>
+  <td>{{user.email}}</td>
+  <td *ngIf="editUserDetailsFlag" class="user-role">
+    <select [(ngModel)]="user.role" name="Select Rights">
+      <option *ngFor="let role of usersTypes" [ngValue]="role">{{role}}</option>
+    </select>
+  </td>
+  <td *ngIf="!editUserDetailsFlag" class="user-role">
+    {{user.role}}
+  </td>
+  <td class="can-edit">
+    {{user.canEdit}}
+  </td>
+  <td>
+    <button *ngIf="!editUserDetailsFlag" class="btn-danger" (click)='switcChanges()'>Edit</button>
+    <button *ngIf="editUserDetailsFlag" class="btn-primary" (click)='onSubmitUsers()'>Save</button>
+  </td>

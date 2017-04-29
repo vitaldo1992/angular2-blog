@@ -42,17 +42,13 @@ export class ArtDetailsComponent implements OnInit {
       }
     });
 
-    firebaseData.auth.subscribe((auth) => {
-      if (auth) { firebaseData.database.list('/users').subscribe(users => {
-          for (let i = 0; i < users.length; i++ ) {
-            if (users[i].userToken == auth.uid) {
-              this.canEdit = users[i].canEdit;
-              console.log(this.canEdit);
-              break;
-            }
-          }
+    this.fbService.af.auth.subscribe(auth => {
+      this.canEdit = false;
+      if (auth) {
+        this.fbService.getUser(auth.uid).subscribe(user=> {
+          this.canEdit = user.canEdit;
         });
-      } else { this.canEdit = false }
+      }
     });
 
 

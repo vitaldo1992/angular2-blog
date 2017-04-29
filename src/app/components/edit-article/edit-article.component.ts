@@ -27,15 +27,19 @@ export class EditArticleComponent implements OnInit {
       this.path = article.path
     });
 
-    let vm = this;
     let firebaseData = this.fbService.af;
     firebaseData.auth.subscribe((auth) => {
       if (auth) { firebaseData.database.list('/users').subscribe(users => {
-          users.map(function(elem){  vm.canEdit = (elem.userToken) == auth.uid? elem.canEdit: false;  });
+          for (let i = 0; i < users.length; i++ ) {
+            if (users[i].userToken == auth.uid && users[i].canEdit == 'true') {
+              this.canEdit = true;
+              break;
+            }
+          }
         });
-      } else { vm.canEdit = false; this.router.navigate(['article']); }
+      } else { this.canEdit = false }
     });
-
+    console.log(this.canEdit)
 
   }
 

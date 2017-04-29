@@ -7,16 +7,15 @@
     <app-item-content [item]="item" *ngFor="let item of articles"></app-item-content>
   </ul>
   <!-- <button class="btn btn-danger add" (click)="addingItemIn()" *ngIf="!addingItem">Добавить статью</button> -->
-  <div *ngIf="canEdit">
-  <a [routerLink]="['/add-article']" class="btn btn-danger add">Добавить статью</a>
-  <div class="addBlock" *ngIf="addingItem">
+  <div >
+  <a *ngIf="canEdit" [routerLink]="['/add-article']" class="btn btn-danger add">Добавить статью</a>
+  <!-- <div class="addBlock" *ngIf="addingItem">
     <div class="adding-content">
-      <!-- <input type="text" name="art_key" placeholder="art_key..." #new_item.key> -->
       <input type="text" name="art_title" placeholder="art_title..." #new_title>
       <input type="text" name="art_date" placeholder="art_date..." #new_date>
       <textarea name="art_content" placeholder="art_content..." rows="8" cols="80"  [(ngModel)]="content" #new_content></textarea>
     </div>
     <button class="btn btn-danger add" (click)="addingItemIn()">Отмена</button>
     <button class="btn btn-danger add" (click)="addArticle(new_title.value, new_content.value, new_date.value)">Загрузить</button>
-  </div>
+  </div> -->
 </div>
