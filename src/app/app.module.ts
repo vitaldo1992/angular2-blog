@@ -30,6 +30,7 @@ import { EditUsersComponent } from './components/root-room/edit-users/edit-users
 
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { MaterialModule } from '@angular/material';
+import { ElasticModule } from 'angular2-elastic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
@@ -54,8 +55,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     HttpModule,
     RouterModule.forRoot(routesConfig),
     AngularFireModule.initializeApp(FireBaseConfig),
-    MaterialModule,
-    BrowserAnimationsModule
+    MaterialModule.forRoot(),
+    BrowserAnimationsModule,
+    ElasticModule
   ],
   exports: [],
   providers: [AuthService],

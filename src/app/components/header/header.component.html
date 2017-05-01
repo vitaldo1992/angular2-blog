@@ -1,33 +1,33 @@
 <!-- <md-toolbar> -->
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <!-- <a class="navbar-brand" href="#"></a> -->
-            <a class="navbar-brand" routerLink="">GoTo-Blog</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                  <a routerLink="/article" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Articles</a>
-                </li>
-                <li *ngIf="root">
-                  <a routerLink="/add-article" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Add-Articles</a>
-                </li>
-            </ul>
-            span
-            <a *ngIf="root" class="btn btn-primary" routerLink="/root-room" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Root Room</a>+
-            <button class="btn" routerLinkActive="active" (click)="loginWithGoogle()" [routerLinkActiveOptions]="{exact: true}" *ngIf="!(authService.af.auth | async)">Login</button>
-            <button class="btn" routerLinkActive="active" (click)="logOut()" [routerLinkActiveOptions]="{exact: true}" *ngIf="(authService.af.auth | async)">Logout</button>
-            <span *ngIf="authService.af.auth | async" class="user-name">Hello, {{name}} </span>
-        </div>
-    </div>
-  </nav>
-<!-- </md-toolbar> -->
+<md-toolbar color="primary" class="mat-elevation-z7">
+
+
+      <a class="left-menu" md-button routerLink=""><md-icon class="brand">add_location</md-icon> GTW-Blog</a>
+      <a class="left-menu" md-button routerLink="/article">Articles</a>
+      <a class="left-menu" *ngIf="root" md-button routerLink="/add-article" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Add-Articles</a>
+
+      <span class="spacer"></span>
+      <span *ngIf="authService.af.auth | async" class="user-name">{{name}}</span>
+      <button md-button (click)="loginWithGoogle()" *ngIf="!(authService.af.auth | async)"><i class="material-icons">exit_to_app</i> Login</button>
+  <button  *ngIf="authService.af.auth | async" md-icon-button [mdMenuTriggerFor]="menu">
+    <md-icon>more_vert</md-icon>
+  </button>
+  <md-menu #menu="mdMenu" xPosition="before">
+    <button md-menu-item>
+      <md-icon>notifications</md-icon>
+      <span>Notifications</span>
+    </button>
+    <a *ngIf="root" md-menu-item routerLink="/root-room">
+      <md-icon>account_circle</md-icon>
+      <span>Admin Room</span>
+    </a>
+    <button md-menu-item>
+      <md-icon>settings</md-icon>
+      <span>Settings</span>
+    </button>
+    <button md-menu-item (click)="logOut()" *ngIf="(authService.af.auth | async)">
+      <md-icon>assignment_return</md-icon>
+      <span>Logout</span>
+    </button>
+  </md-menu>
+</md-toolbar>

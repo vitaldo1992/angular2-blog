@@ -1,13 +1,11 @@
 
+<div class="toolbar">
+  Welcome to <a routerLink="/" class="title-gtw"> GotoWeb </a>
+</div>
   <ul class="article">
-    <p class="lead from-top">
-      Read about <a routerLink="/"> GotoWeb </a>
-    </p>
-    <hr>
     <app-item-content [item]="item" *ngFor="let item of articles"></app-item-content>
   </ul>
   <!-- <button class="btn btn-danger add" (click)="addingItemIn()" *ngIf="!addingItem">Добавить статью</button> -->
-  <div >
   <a *ngIf="canEdit" [routerLink]="['/add-article']" class="btn btn-danger add">Добавить статью</a>
   <!-- <div class="addBlock" *ngIf="addingItem">
     <div class="adding-content">
@@ -18,4 +16,3 @@
     <button class="btn btn-danger add" (click)="addingItemIn()">Отмена</button>
     <button class="btn btn-danger add" (click)="addArticle(new_title.value, new_content.value, new_date.value)">Загрузить</button>
   </div> -->
-</div>

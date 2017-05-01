@@ -1,18 +1,30 @@
-.btn {
-  float: right;
-  margin-top: 8px;
-  margin-left: 10px;
-}
-.btn-primary.active {
-  background-color: #337ab7;
-  border-color: #fff;
-}
 .user-name {
   display: inline-block;
   width: auto;
   float: right;
   position: relative;
   color: #fff;
+  font-size: 16px;
   height: 50px;
   line-height: 50px;
+  font-weight: normal;
+}
+* {
+  font-style: "Roboto","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif !important;
+}
+a {
+  text-decoration: none !important;
+  outline: none !important;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.left-menu {
+  text-transform: uppercase;
+  &:hover, &:focus {
+    color: #fff;
+  }
+}
+.brand {
+  margin-top: -3px;
 }

@@ -10,12 +10,17 @@ import { Router} from '@angular/router';
 export class AddArticleComponent implements OnInit {
   art_title: any;
   art_date: any;
-  art_content: any;
+  art_content: string;
   path: any;
+  myElem: HTMLElement;
+  title: string = 'Article image';
 
-  constructor(private fbService: AuthService, private router: Router ) { }
+  constructor(private fbService: AuthService, private router: Router) {
+  }
 
   ngOnInit() {
+    this.myElem = document.querySelector('input');
+    console.log(this.myElem);
   }
 
   onAddSubmit() {
@@ -29,6 +34,10 @@ export class AddArticleComponent implements OnInit {
 
     this.fbService.addArticle(new_article);
     this.router.navigate(['article'])
+  }
+
+  getInfo(event) {
+    this.title = event.target.files[0].name;
   }
 
 }

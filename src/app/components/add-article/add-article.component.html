@@ -1,8 +1,51 @@
 <div *ngIf="fbService.af.auth | async">
-  <h2>
-    Добавьте свою статью, заполнив поля
-  </h2>
-  <form (submit)="onAddSubmit()">
+  <md-toolbar color="primary">
+    <span>Add an article</span>
+  </md-toolbar>
+  <md-card class="example-card">
+    <md-card-header>
+      <md-card-title>Article Card</md-card-title>
+      <md-card-subtitle>Will be added by...</md-card-subtitle>
+    </md-card-header>
+  <form class="example-form" (submit)="onAddSubmit()">
+
+  <table class="example-full-width">
+    <tr>
+      <td class="name">
+        <md-input-container class="example-full-width">
+          <input mdInput placeholder="Article name" value="Google" [(ngModel)]="art_title" name="art_title" required>
+        </md-input-container>
+      </td>
+      <td class="adress">
+        <md-input-container class="example-full-width">
+          <input mdInput [(ngModel)]='art_date' name="art_date" required placeholder="Date of create">
+        </md-input-container>
+      </td>
+    </tr>
+  </table>
+  <p class="text-area">
+    <md-input-container class="example-full-width">
+      <textarea fz-elastic mdInput name="art_content" [(ngModel)]='art_content' required placeholder="Article text"></textarea>
+    </md-input-container>
+  </p>
+  <div class="custom-container">
+    <label for="art_img" class="custom">
+      <i class="material-icons load-icon">file_upload</i>
+      <input id="art_img" class="art_img" name="art_img" type="file" [(ngModel)]='art_img' required (change)="getInfo($event)">
+      <div class='file-name'>{{title}}</div>
+    </label>
+  </div>
+
+  <md-card-actions>
+    <!-- <button id="choose">Choose Image</button> -->
+    <button md-button type="submit" class="add-btn" (click)="onAddSubmit()">ADD</button>
+    <a md-button [routerLink]="['/articles']" class="back-btn">BACK</a>
+  </md-card-actions>
+
+  </form>
+  </md-card>
+</div>
+  <!-- <form (submit)="onAddSubmit()">
     <div class="input-container">
       <input type="text"  [(ngModel)]="art_title" name="art_title" required placeholder="Название статьи">
     </div>
@@ -12,13 +55,5 @@
     <div class="input-container">
       <textarea name="art_content" [(ngModel)]='art_content' required placeholder="Текст статьи"></textarea>
     </div>
-    <div class="input-container">
-      <input id="image" name="art_img" type="file" [(ngModel)]='art_img' required>
-    </div>
-    <div class="input-container">
-      <input type="submit" value="Добавить">
-    </div>
 
-  </form>
-  <a [routerLink]="['/articles']" class="btn btn-content"></a>
-</div>
+  </form> -->
